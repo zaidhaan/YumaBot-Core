@@ -18,7 +18,7 @@ module.exports = {
 ```
 
 ### Example Event:
-Create a new javascript file in ./commands/ and add the following:
+Create a new javascript file in ./events/ and add the following:
 ```js
 // eg: ./events/guildCreate.js
 module.exports = {

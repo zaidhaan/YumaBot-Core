@@ -55,9 +55,21 @@ function sendHelpMessage(bot, msg, suffix, commands, config){
 				var info = "`"+config.prefix + cmd+"`";
 				if(commands[cmd].tag == "Basic"){
 					basic.push(" "+info);
-				}else{
+				}
+				if(!commands[cmd].tag || commands[cmd].tag == undefined){
 					other.push(" "+info);
 				}
+				/*
+				=== Adding More Tags === ("ExampleTag" tag example)
+
+				var exampletag = [];
+				if(commands[cmd].tag == "ExampleTag"){
+					exampletag.push(" "+info);
+				}
+
+				Then you can add this array into the message array below with some basic javascript knowledge like:
+				> replace line 75 with msgArray.push(`**Basic: **${basic}\n**ExampleTag :**${exampletag}\n**Other :**${other}`);
+				*/
 			}
 		}
 		msgArray.push(`**Basic: **${basic}\n**Other :**${other}`);

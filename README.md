@@ -6,13 +6,17 @@ A lightweight [Discord](https://discordapp.com/) bot framework made in NodeJS us
 ### Example Command:
 Create a new javascript file in ./commands/ and add the following:
 ```js
-// eg: ./commands/hello.js
+// eg: ./commands/kawaii.js
 module.exports = {
     ownerOnly: false, // Whether only owner (from ./config.json) can execute this command
     guildOnly: true, // Whether command cannot be executed outside a guild
     cooldown: 2, // Simple cooldown
-    process: function(bot, msg, suffix){ // Process of the command
-        bot.createMessage("Hi there!");
+    description: "Responds with 'Hi there!'", // Short description of the command
+    usage: "<name>", // Usage of the command
+    process: function(bot, msg, suffix){ // Process function of the command
+        if(suffix){
+            bot.createMessage(msg.channel.id, suffix + " is kawaii! :3");
+        }else bot.createMessage(msg.channel.id, "Please try again with some arguments")
     }
 }
 ```

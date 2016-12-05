@@ -12,7 +12,7 @@ module.exports = {
     guildOnly: true, // Whether command cannot be executed outside a guild
     cooldown: 2, // Simple cooldown
     tag: "Basic", // A tag
-    description: "Responds with 'Hi there!'", // Short description of the command
+    description: "Responds with what you said is kawaii", // Short description of the command
     usage: "<name>", // Usage of the command
     process: function(bot, msg, suffix){ // Process function of the command
         if(suffix){

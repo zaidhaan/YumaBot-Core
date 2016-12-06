@@ -1,5 +1,6 @@
 var Eris = require("eris");
 var fs = require("fs");
+var request = require("request");
 var logger = require("./utils/logger.js");
 
 class Bot extends Eris.Client{
@@ -121,6 +122,40 @@ class Bot extends Eris.Client{
                 .then(this.loadCommands())
                 .then(this.sendReady())
                 .catch(e => reject("Error during init: "+e));
+        });
+    }
+
+    updateCarbon(key){
+        if(!key && !this.config.carbonKey || this.config.carbonKey == "") return this.logger.warn("Could not update Carbon stats because no key was configured!");
+        request.post({
+    			"url": "https://www.carbonitex.net/discord/data/botdata.php",
+    			"headers": {"content-type": "application/json"}, "json": true,
+    			body: {
+    				"key": key || this.config.carbonKey,
+    				"servercount": this.guilds.size
+    			}
+    		}, (e, r) => {
+    		    if (e) return this.logger.error("Error updating carbon stats: " + e);
+    		    if (r.statusCode !== 200) return this.logger.error("Error updating Carbon stats: Status Code " + r.statusCode);
+                this.logger.debug("Updated Carbon guild count");
+            }
+        );
+    }
+
+    updateDBots(key){
+        if(!key && (!this.config.dbotsApiKey || this.config.dbotsApiKey == "")) return this.logger.warn("Could not update Discord Bots stats because no key was configured!");
+        request.post(`https://bots.discord.pw/api/bots/${this.user.id}/stats`, {
+            body: {
+                "server_count": this.guilds.size
+            },
+            headers: {
+                'Authorization': key || this.config.dbotsApiKey
+            },
+            json: true
+        }, (error, response, body) => {
+            if (error) return this.logger.error("Error updating Discord Bots stats: " + error);
+            if (response.statusCode !== 200) return this.logger.error("Error updating Discord Bots stats: Status Code " + response.statusCode);
+            this.logger.debug("Updated Discord Bots guild count");
         });
     }
 }

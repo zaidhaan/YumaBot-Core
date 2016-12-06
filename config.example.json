@@ -1,5 +1,7 @@
 {
     "token": "BOT_TOKEN",
     "prefix": ">",
-    "ownerId": "118547889931812868"
+    "ownerId": "118547889931812868",
+    "dbotsApiKey": "",
+    "carbonKey": ""
 }

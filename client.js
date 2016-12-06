@@ -31,7 +31,7 @@ class Bot extends Eris.Client{
         if(val == "messageCreate"){
             this.on(val, (msg)=>{
                 if(msg.content.startsWith(this.config.prefix + "eval") && msg.author.id == this.config.ownerId){
-                    evaluate(msg).then(result => {
+                    this.evaluate(msg).then(result => {
                         msg.channel.createMessage(result);
                     });
                 } else this.events.messageCreate.execute(this, msg, this.config, this.commands, this.logger);
@@ -158,12 +158,12 @@ class Bot extends Eris.Client{
             this.logger.debug("Updated Discord Bots guild count");
         });
     }
-}
 
-function evaluate(msg){
-    return new Promise(resolve => {
-        require("./bot.js").eval(msg).then(result => {resolve(result)})
-    });
+    evaluate(msg){
+        return new Promise(resolve => {
+            require("./bot.js").eval(msg).then(result => {resolve(result)})
+        });
+    }
 }
 
 module.exports = Bot;

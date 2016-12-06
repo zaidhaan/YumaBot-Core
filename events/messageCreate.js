@@ -1,7 +1,9 @@
+var Cleverbot = require("cleverbot-node");
+var cleverbot = new Cleverbot();
+
 var lastExecTime = {};
 
 function execCommand(msg, cmd, suffix, bot, commands, logger){
-	bot.commandsProcessed += 1;
 	if(commands[cmd].hasOwnProperty("cooldown")){
         if(!lastExecTime[cmd]) lastExecTime[cmd] = [];
 		if(!lastExecTime[cmd].hasOwnProperty(msg.author.id))
@@ -35,6 +37,7 @@ function execCommand(msg, cmd, suffix, bot, commands, logger){
 	}
 
 	try{
+		bot.commandsProcessed++;
 		commands[cmd].process(bot, msg, suffix);
 	}catch(e){
 		bot.createMessage("Command "+suffix+" failed to execute! Please inform the bot owner about this!");
@@ -122,7 +125,15 @@ module.exports = {
                 if(msg.content.length == bot.user.mention.length){
                     bot.createMessage(msg.channel.id, "Yeah?");
                 }else{
-                    // Cleverbot
+					if(config.cleverbot && config.cleverbot == false) return;
+					Cleverbot.prepare(function(){
+						bot.sendChannelTyping(msg.channel.id);
+						cleverbot.write(suffix, function(response){
+							bot.createMessage(msg.channel.id, response.message);
+							bot.cleverResponses++;
+						});
+					});
+					logger.logCommand(msg);
                 }
             }
             var cmd;

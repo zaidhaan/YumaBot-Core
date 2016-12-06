@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "chalk": "^1.1.3",
-    "eris": "^0.5.1"
+    "eris": "^0.5.1",
+    "request": "^2.79.0"
   }
 }

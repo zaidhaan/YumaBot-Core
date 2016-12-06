@@ -2,6 +2,7 @@
 ![Bot-Framework](http://i.imgur.com/M3HhEQL.png)
 
 A lightweight [Discord](https://discordapp.com/) bot framework made in NodeJS using [Eris](https://github.com/abalabahaha/eris)
+Visit the [gallery](http://imgur.com/a/Rwz1m) to see some pictures of what this framework does
 
 ### Example Command:
 Create a new javascript file in `./commands/` and add the following:

@@ -55,13 +55,13 @@ Then go to `./events/messageCreate.js` and follow the instructions that are stat
 >
 > ![Image 1](http://i.imgur.com/tXjzpFt.png)
 
-
+---
 
 > * Easy to spot errors
 >
 >  ![Image 2](http://i.imgur.com/VjRSPve.png)
 
-
+---
 
 > * Commands and Events nested in folders
 >
@@ -70,7 +70,7 @@ Then go to `./events/messageCreate.js` and follow the instructions that are stat
 > ![Image 3](http://i.imgur.com/rn5lXMJ.png)
 >
 
-
+---
 
 > * Configurable Commands and Events
 >

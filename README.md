@@ -13,6 +13,7 @@ module.exports = {
     ownerOnly: false, // Whether only owner (from ./config.json) can execute this command
     guildOnly: true, // Whether command cannot be executed outside a guild
     cooldown: 2, // Simple cooldown
+    aliases: "cute", // An alias of the command. Can also be an array: ["alias1", "alias2"]
     tag: "Basic", // A tag
     description: "Responds with what you said is kawaii", // Short description of the command
     usage: "<name>", // Usage of the command

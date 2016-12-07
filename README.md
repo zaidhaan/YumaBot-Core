@@ -37,6 +37,7 @@ module.exports = {
 
 ### Adding More Tags (help message):
 In the help message, you might like your own custom tags, here is how you will do it:
+
 First of all, on the commands you want the tag to be in, put it in like
 ```js
 module.exports = {
@@ -47,3 +48,30 @@ module.exports = {
 }
 ```
 Then go to `./events/messageCreate.js` and follow the instructions that are stated from line 62
+
+- - - -
+## Features:
+> * **Beautiful** logs :tada:
+>
+> ![Image 1](http://i.imgur.com/tXjzpFt.png)
+
+---
+
+> * Easy to spot errors
+>
+>  ![Image 2](http://i.imgur.com/VjRSPve.png)
+
+---
+
+> * Commands and Events nested in folders
+>
+> > this also makes it easier to add/edit commands
+>
+> ![Image 3](http://i.imgur.com/rn5lXMJ.png)
+>
+
+---
+
+> * Configurable Commands and Events
+>
+> ![Image 3](http://i.imgur.com/u1SfmQs.png)

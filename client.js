@@ -48,6 +48,7 @@ class Bot extends Eris.Client{
                 if(msg.content.startsWith(this.config.prefix + "eval") && msg.author.id == this.config.ownerId){
                     this.evaluate(msg, (result) => {
                         msg.channel.createMessage(result);
+                        this.logger.logCommand(msg);
                     });
                 } else this.events.messageCreate.execute(this, msg, this.config, this.commands, this.logger);
             });

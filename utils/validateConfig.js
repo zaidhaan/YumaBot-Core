@@ -32,6 +32,14 @@ module.exports = function(config, logger){
             logger.configError("ownerId must be a string!");
             return reject();
         }
+        if(!config.cleverbot){
+            logger.configError("cleverbot is not defined!");
+            return reject();
+        }
+        if(typeof config.cleverbot !== "boolean"){
+            logger.configError("cleverbot must be a boolean!");
+            return reject();
+        }
         return resolve();
     });
 }

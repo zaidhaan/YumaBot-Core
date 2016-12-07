@@ -3,5 +3,6 @@
     "prefix": ">",
     "ownerId": "118547889931812868",
     "dbotsApiKey": "",
-    "carbonKey": ""
+    "carbonKey": "",
+    "cleverbot": true
 }

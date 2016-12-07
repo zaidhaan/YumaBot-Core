@@ -39,7 +39,7 @@ class Bot extends Eris.Client{
                     msg.channel.createMessage(`Sucessfully reloaded command **${suffix}**!`);
                 }
                 if(msg.content.startsWith(this.config.prefix + "eval") && msg.author.id == this.config.ownerId){
-                    this.evaluate(msg).then(result => {
+                    this.evaluate(msg, (result) => {
                         msg.channel.createMessage(result);
                     });
                 } else this.events.messageCreate.execute(this, msg, this.config, this.commands, this.logger);
@@ -167,10 +167,15 @@ class Bot extends Eris.Client{
         });
     }
 
-    evaluate(msg){
-        return new Promise(resolve => {
-            require("./bot.js").eval(msg).then(result => {resolve(result)})
-        });
+    evaluate(msg, callback){
+        var code = msg.content.substring(this.config.prefix.length + 4).trim();
+        var result = "No Result!";
+        try{
+            result = eval("let bot = this;\n"+code);
+        }catch(e){
+            result = "Error: "+e;
+        }
+        callback(result);
     }
 }
 

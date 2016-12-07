@@ -35,8 +35,14 @@ class Bot extends Eris.Client{
                 if(msg.content.startsWith(this.config.prefix + "reload") && msg.author.id == this.config.ownerId){
                     var suffix = msg.content.substring(this.config.prefix.length + 6).trim();
                     if(!this.commands[suffix]) return msg.channel.createMessage(`Command **${suffix}** does not exist!`);
+                    var neew;
+                    try{
+                        neew = reload(`./commands/${suffix}.js`)
+                    }catch(e){
+                        return this.logger.error(e);
+                    }
                     delete this.commands[suffix];
-                    this.commands[suffix] = reload(`./commands/${suffix}.js`);
+                    this.commands[suffix] = neew;
                     msg.channel.createMessage(`Sucessfully reloaded command **${suffix}**!`);
                 }
                 if(msg.content.startsWith(this.config.prefix + "eval") && msg.author.id == this.config.ownerId){

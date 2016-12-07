@@ -2,6 +2,7 @@ var Eris = require("eris");
 var fs = require("fs");
 var request = require("request");
 var logger = require("./utils/logger.js");
+var reload = require("require-reload")(require);
 
 class Bot extends Eris.Client{
     constructor(config){
@@ -30,6 +31,13 @@ class Bot extends Eris.Client{
     processEvent(val){
         if(val == "messageCreate"){
             this.on(val, (msg)=>{
+                if(msg.content.startsWith(this.config.prefix + "reload") && msg.author.id == this.config.ownerId){
+                    var suffix = msg.content.substring(this.config.prefix.length + 6).trim();
+                    if(!this.commands[suffix]) return msg.channel.createMessage(`Command **${suffix}** does not exist!`);
+                    delete this.commands[suffix];
+                    this.commands[suffix] = reload(`./commands/${suffix}.js`);
+                    msg.channel.createMessage(`Sucessfully reloaded command **${suffix}**!`);
+                }
                 if(msg.content.startsWith(this.config.prefix + "eval") && msg.author.id == this.config.ownerId){
                     this.evaluate(msg).then(result => {
                         msg.channel.createMessage(result);

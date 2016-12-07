@@ -15,6 +15,7 @@
     "chalk": "^1.1.3",
     "cleverbot-node": "github:briantanner/cleverbot-node",
     "eris": "^0.5.1",
-    "request": "^2.79.0"
+    "request": "^2.79.0",
+    "require-reload": "^0.2.2"
   }
 }

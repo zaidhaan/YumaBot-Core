@@ -36,7 +36,11 @@ class Logger{
     }
 
     configError(message){
-        console.log(`${this.timestamp} ${chalk.bgRed.black("CONFIG ERROR")}: ${chalk.yellow(message)}`);
+        console.log(`${chalk.bgRed.black("CONFIG ERROR")}: ${chalk.yellow(message)}`);
+    }
+
+    configWarn(message){
+        console.log(`${chalk.bgYellow.black("CONFIG WARN")}: ${chalk.yellow(message)}`);
     }
 
     logFileLoaded(file){

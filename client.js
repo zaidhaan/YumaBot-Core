@@ -1,6 +1,7 @@
 var Eris = require("eris");
 var fs = require("fs");
 var request = require("request");
+var validateConfig = require("./utils/validateConfig.js")
 var logger = require("./utils/logger.js");
 var reload = require("require-reload")(require);
 
@@ -118,15 +119,24 @@ class Bot extends Eris.Client{
         });
     }
 
+    validateConfig(){
+        return new Promise((resolve) => {
+            validateConfig(this.config, this.logger).catch(() => process.exit(0));
+            return resolve();
+        });
+    }
+
     sendReady(){
         return new Promise(resolve => {
             this.logger.logReady(`${this.user.username}#${this.user.discriminator}`, this.guilds.size);
-        })
+            return resolve();
+        });
     }
 
     init(){
         return new Promise((resolve, reject)=>{
-            this.loadEvents()
+            this.validateConfig()
+                .then(this.loadEvents())
                 .then(this.loadCommands())
                 .then(this.sendReady())
                 .catch(e => reject("Error during init: "+e));
@@ -134,7 +144,10 @@ class Bot extends Eris.Client{
     }
 
     updateCarbon(key){
-        if(!key && !this.config.carbonKey || this.config.carbonKey == "") return this.logger.warn("Could not update Carbon stats because no key was configured!");
+        if(!key && !this.config.carbonKey || this.config.carbonKey == ""){
+            this.logger.warn("Could not update Carbon stats because no api key was configured!");
+            return;
+        }
         request.post({
     			"url": "https://www.carbonitex.net/discord/data/botdata.php",
     			"headers": {"content-type": "application/json"}, "json": true,
@@ -151,7 +164,10 @@ class Bot extends Eris.Client{
     }
 
     updateDBots(key){
-        if(!key && (!this.config.dbotsApiKey || this.config.dbotsApiKey == "")) return this.logger.warn("Could not update Discord Bots stats because no key was configured!");
+        if(!key && (!this.config.dbotsApiKey || this.config.dbotsApiKey == "")){
+            this.logger.warn("Could not update Discord Bots stats because no api key was configured!");
+            return;
+        }
         request.post(`https://bots.discord.pw/api/bots/${this.user.id}/stats`, {
             body: {
                 "server_count": this.guilds.size
@@ -175,6 +191,7 @@ class Bot extends Eris.Client{
         }catch(e){
             result = "Error: "+e;
         }
+        if(result == "" || result == undefined || result == null) result = "undefined";
         callback(result);
     }
 }

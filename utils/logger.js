@@ -16,23 +16,27 @@ class Logger{
     }
 
     debug(message){
-        console.log(`${this.timestamp} ${chalk.bgBlue.black("DEBUG")}: ${message}`);
+        console.log(`${this.timestamp} ${chalk.bgBlue.black("DEBUG")}: ${chalk.blue(message)}`);
     }
 
     warn(message){
-        console.log(`${this.timestamp} ${chalk.bgYellow.black("WARN")}: ${message}`);
+        console.log(`${this.timestamp} ${chalk.bgYellow.black("WARN")}: ${chalk.yellow(message)}`);
     }
 
     info(message){
-        console.log(`${this.timestamp} ${chalk.byCyan.black("INFO")}: ${message}`)
+        console.log(`${this.timestamp} ${chalk.byCyan.black("INFO")}: ${chalk.cyan(message)}`)
     }
 
     error(message){
-        console.log(`${this.timestamp} ${chalk.bgRed.black("ERROR")}: ${message}`);
+        console.log(`${this.timestamp} ${chalk.bgRed.black("ERROR")}: ${chalk.yellow(message)}`);
     }
 
     log(message){
-        console.log(`this.timestamp ${message}`);
+        console.log(`${this.timestamp} ${message}`);
+    }
+
+    configError(message){
+        console.log(`${this.timestamp} ${chalk.bgRed.black("CONFIG ERROR")}: ${chalk.yellow(message)}`);
     }
 
     logFileLoaded(file){

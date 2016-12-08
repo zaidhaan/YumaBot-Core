@@ -1,7 +1,9 @@
-# Bot-Framework
-![Bot-Framework](http://i.imgur.com/M3HhEQL.png)
+# YumaBot-Core
+![YumaBot-Core](http://i.imgur.com/M3HhEQL.png)
 
 A lightweight [Discord](https://discordapp.com/) bot framework made in NodeJS using [Eris](https://github.com/abalabahaha/eris)
+
+Also the framework of a new bot of mine which I will be releasing soon
 
 Visit the [gallery](http://imgur.com/a/Rwz1m) to see some pictures of what this framework does
 

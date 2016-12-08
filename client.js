@@ -67,30 +67,37 @@ class Bot extends Eris.Client{
 
     loadEvents(){
         return new Promise((resolve, reject)=>{
-            fs.readdir("./events/", (err, files)=>{
-                if(err) reject("Could not read events file!");
-                if(!files || files.length == 0){
-                    reject("No files found in events folder!");
+            fs.access('./events', fs.constants.R_OK | fs.constants.W_OK, (err) => {
+                if(err){
+                    this.logger.error('./events Does not exist!');
+                    process.exit(0);
                 }else{
-                    var js = 0;
-                    var i = 0;
-                    for(let val of files){
-                        i++
-                        if(val.endsWith(".js")){
-                            js++
-                            val = val.replace(/\.js$/, ""); // replace the value which ends .js with nothing
-                            try{
-                                this.events[val] = require(`./events/${val}.js`);
-                                this.processEvent(val);
-                                this.logger.logFileLoaded(`./events/${val}.js`);
-                                if(files.length == i) this.logger.logEnd("EVENTS", js, i);
-                            }catch(e){
-                                this.logger.logFileError(`./events/${val}.js`, e);
-                                js--;
-                                if(files.length == i) this.logger.logEnd("EVENTS", js, i);
+                    fs.readdir("./events/", (err, files)=>{
+                        if(err) reject("Could not read events file!");
+                        if(!files || files.length == 0){
+                            reject("No files found in events folder!");
+                        }else{
+                            var js = 0;
+                            var i = 0;
+                            for(let val of files){
+                                i++
+                                if(val.endsWith(".js")){
+                                    js++
+                                    val = val.replace(/\.js$/, ""); // replace the value which ends .js with nothing
+                                    try{
+                                        this.events[val] = require(`./events/${val}.js`);
+                                        this.processEvent(val);
+                                        this.logger.logFileLoaded(`./events/${val}.js`);
+                                        if(files.length == i) this.logger.logEnd("EVENTS", js, i);
+                                    }catch(e){
+                                        this.logger.logFileError(`./events/${val}.js`, e);
+                                        js--;
+                                        if(files.length == i) this.logger.logEnd("EVENTS", js, i);
+                                    }
+                                }
                             }
                         }
-                    }
+                    });
                 }
             });
         });
@@ -98,29 +105,36 @@ class Bot extends Eris.Client{
 
     loadCommands(){
         return new Promise((resolve, reject)=>{
-            fs.readdir("./commands/", (err, files)=>{
-                if(err) reject("Could not read events file!");
-                if(!files || files.length == 0){
-                    reject("No files found in commands folder!");
+            fs.access('./commands', fs.constants.R_OK | fs.constants.W_OK, (err) => {
+                if(err){
+                    this.logger.error('./commands Does not exist!');
+                    process.exit(0);
                 }else{
-                    var js = 0;
-                    var i = 0;
-                    for(let val of files){
-                        i++
-                        if(val.endsWith(".js")){
-                            js++
-                            val = val.replace(/\.js$/, ""); // replace the value which ends .js with nothing
-                            try{
-                                this.commands[val] = require(`./commands/${val}.js`);
-                                this.logger.logFileLoaded(`./commands/${val}.js`);
-                                if(files.length == i) this.logger.logEnd("COMMANDS", js, i);
-                            }catch(e){
-                                this.logger.logFileError(`./commands/${val}.js`, e);
-                                js--;
-                                if(files.length == i) this.logger.logEnd("COMMANDS", js, i);
+                    fs.readdir("./commands/", (err, files)=>{
+                        if(err) reject("Could not read events file!");
+                        if(!files || files.length == 0){
+                            reject("No files found in commands folder!");
+                        }else{
+                            var js = 0;
+                            var i = 0;
+                            for(let val of files){
+                                i++
+                                if(val.endsWith(".js")){
+                                    js++
+                                    val = val.replace(/\.js$/, ""); // replace the value which ends .js with nothing
+                                    try{
+                                        this.commands[val] = require(`./commands/${val}.js`);
+                                        this.logger.logFileLoaded(`./commands/${val}.js`);
+                                        if(files.length == i) this.logger.logEnd("COMMANDS", js, i);
+                                    }catch(e){
+                                        this.logger.logFileError(`./commands/${val}.js`, e);
+                                        js--;
+                                        if(files.length == i) this.logger.logEnd("COMMANDS", js, i);
+                                    }
+                                }
                             }
                         }
-                    }
+                    });
                 }
             });
         });

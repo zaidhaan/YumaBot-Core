@@ -1,4 +1,4 @@
-# YumaBot-Core [![NPM Version](https://img.shields.io/npm/v/yumabot-core.svg?style=flat-square)] [![Dependency Status](https://img.shields.io/david/thevexatious/yumabot-core.svg?style=flat-square)](https://david-dm.org/thevexatious/yumabot-core)
+# YumaBot-Core [![NPM Version](https://img.shields.io/npm/v/yumabot-core.svg?style=flat-square)](https://www.npmjs.com/package/yumabot-core) [![Dependency Status](https://img.shields.io/david/thevexatious/yumabot-core.svg?style=flat-square)](https://david-dm.org/thevexatious/yumabot-core)
 ![YumaBot-Core](http://i.imgur.com/M3HhEQL.png)
 
 A lightweight [Discord](https://discordapp.com/) bot framework made in NodeJS using [Eris](https://github.com/abalabahaha/eris)

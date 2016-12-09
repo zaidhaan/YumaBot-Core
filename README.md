@@ -3,9 +3,29 @@
 
 A lightweight [Discord](https://discordapp.com/) bot framework made in NodeJS using [Eris](https://github.com/abalabahaha/eris)
 
-Also the framework of a new bot of mine which I will be releasing soon
-
 Visit the [gallery](http://imgur.com/a/Rwz1m) to see some pictures of what this framework does
+
+## Installing
+> Fun Fact: The bot can automatically create the commands and events folder with default files in it so you don't need to copy and paste every thing in the GitHub repository
+1. In the command line execute `npm install yumabot-core --save`
+2. Create a js file with the following contents:
+```js
+var Yuma = require("yumabot-core");
+var bot = new Yuma({
+	"token": "TOKEN", // required
+    "prefix": ">", // required
+    "ownerId": "OWNER_ID", // required
+    "dbotsApiKey": "DBOTS_KEY", // not required
+    "carbonKey": "CARBON_KEY", // not required
+    "cleverbot": true
+});
+
+bot.connect();
+```
+You could also replace the object within Yuma with `new Yuma(config)` where config would be a json file containing those contents.
+
+And that's it! for the first time when you run it there is a change of errors, but that's ok, you can just type CTRL+C in cmd to exit it and just try running it again and it *should* be fine :smiley:
+
 
 ### Example Command:
 Create a new javascript file in `./commands/` and add the following:

@@ -7,6 +7,7 @@ Visit the [gallery](http://imgur.com/a/Rwz1m) to see some pictures of what this 
 
 ## Installing
 > Fun Fact: The bot can automatically create the commands and events folder with default files in it so you don't need to copy and paste every thing in the GitHub repository
+
 1. In the command line execute `npm install yumabot-core --save`
 2. Create a js file with the following contents:
 ```js

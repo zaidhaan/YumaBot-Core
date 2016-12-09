@@ -24,7 +24,7 @@ class Logger{
     }
 
     info(message){
-        console.log(`${this.timestamp} ${chalk.byCyan.black("INFO")}: ${chalk.cyan(message)}`)
+        console.log(`${this.timestamp} ${chalk.bgCyan.black("INFO")}: ${chalk.cyan(message)}`)
     }
 
     error(message){
@@ -33,6 +33,14 @@ class Logger{
 
     log(message){
         console.log(`${this.timestamp} ${message}`);
+    }
+
+    dInfo(one, two, swich){
+        if(two){
+            if(swich && swich == true){
+                console.log(`${chalk.bgCyan.black("INFO")}: ${chalk.cyan(one)} ${chalk.magenta(two)}`);
+            }else console.log(`${chalk.bgCyan.black("INFO")}: ${chalk.magenta(one)} ${chalk.cyan(two)}`);
+        }else console.log(`${chalk.bgCyan.black("INFO")}: ${chalk.cyan(one)}`);
     }
 
     configError(message){

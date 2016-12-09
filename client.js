@@ -1,9 +1,22 @@
 var Eris = require("eris");
 var fs = require("fs");
+var path = require("path");
 var request = require("request");
-var validateConfig = require("./utils/validateConfig.js")
-var logger = require("./utils/logger.js");
+/*var validateConfig = require("./utils/validateConfig.js")
+var logger = require("./utils/logger.js");*/
+var validateConfig = require(path.join(__dirname, 'utils')+"/validateConfig.js")
+var logger = require(path.join(__dirname, 'utils')+"/logger.js");
 var reload = require("require-reload")(require);
+
+var defaultCommands = {};
+var defaultEvents = {};
+
+require("fs").readdirSync(path.join(__dirname, 'commands')).forEach(function(file) {
+  defaultCommands[file.substring(0, file.length - 3)] = require("./commands/" + file);
+});
+require("fs").readdirSync(path.join(__dirname, 'events')).forEach(function(file) {
+  defaultEvents[file.substring(0, file.length - 3)] = require("./events/" + file);
+});
 
 class Bot extends Eris.Client{
     constructor(config){
@@ -27,6 +40,8 @@ class Bot extends Eris.Client{
         this.logger = new logger(true);
         this.commands = {};
         this.events = {};
+        this.dCommands = defaultCommands;
+        this.dEvents = defaultEvents;
     }
 
     processEvent(val){
@@ -65,6 +80,70 @@ class Bot extends Eris.Client{
         }
     }
 
+    checkFolders(){
+        return new Promise((resolve, reject)=>{
+            if (!fs.existsSync("./commands")){
+                this.logger.dInfo("./commands/", "Does not exist, Attempting to create ./commands/ with default commands...");
+                fs.mkdirSync("commands");
+                var keys = Object.keys(this.dCommands);
+                var j;
+                for(var i = 0; i < keys.length; i++){
+					j = keys[i]+".js";
+                    fs.readFile(path.join(__dirname, "commands", j), 'utf8', (err, data) => {
+                        if (err) reject(err);
+                        fs.writeFile("./commands/"+j, data, (err)=>{
+							if(err) reject(err);
+						});
+                    });
+					this.logger.dInfo("Added", `./commands/${keys[i]}.js`, true);
+                }
+                this.logger.dInfo("./commands/", "Finished adding default commands to");
+
+                if(!fs.existsSync("./events")){
+                    this.logger.dInfo("./events/", "Does not exist, Attempting to create ./events/ with default events...");
+                    fs.mkdirSync("events");
+                    var keyss = Object.keys(this.dEvents);
+                    var e;
+                    e = keyss;
+    				keyss.forEach(es => e[keyss.indexOf(es)] = es+".js");
+    				//e = ["guildCreate.js", "guildDelete.js", "messageCreate.js"];
+                    var logr = this.logger
+                    function kek(){
+                        fs.readFile(path.join(__dirname, "events", e[0]), 'utf8', (err, data) => {
+                            if (err) reject(err);
+                            fs.writeFile("./events/"+e[0], data, (err)=>{
+        						if(err) reject(err);
+                                logr.dInfo("Added", `./events/${e[0]}.js`, true);
+                                e.shift();
+                                if(e.length !== 0){
+                                    kek();
+                                }else{
+                                    resolve("kek");
+                                }
+        					});
+                        });
+                    }
+                    kek();
+                }else resolve("kek");
+            }else if(!fs.existsSync("./events")){
+                this.logger.dInfo("./events/", "Does not exist, Attempting to create ./events/ with default events...");
+                    fs.mkdirSync("events");
+                    var keysss = Object.keys(this.dEvents);
+                    var k;
+                    for(var i = 0; i < keysss.length; i++){
+    					k = keysss[i]+".js";
+                        fs.readFile(path.join(__dirname, "events", k), 'utf8', (err, data) => {
+                            if (err) reject(err);
+                            fs.writeFile("./events/"+k, data, (err)=>{
+    							if(err) reject(err);
+    						});
+                        });
+    					this.logger.dInfo("Added", `./events/${keysss[i]}.js`, true);
+                    }
+            }else resolve("kek");
+        });
+    }
+
     loadEvents(){
         return new Promise((resolve, reject)=>{
             fs.access('./events', fs.constants.R_OK | fs.constants.W_OK, (err) => {
@@ -88,11 +167,11 @@ class Bot extends Eris.Client{
                                         this.events[val] = require(`./events/${val}.js`);
                                         this.processEvent(val);
                                         this.logger.logFileLoaded(`./events/${val}.js`);
-                                        if(files.length == i) this.logger.logEnd("EVENTS", js, i);
+                                        if(files.length == i) this.logger.logEnd("EVENTS", js, i); resolve();
                                     }catch(e){
                                         this.logger.logFileError(`./events/${val}.js`, e);
                                         js--;
-                                        if(files.length == i) this.logger.logEnd("EVENTS", js, i);
+                                        if(files.length == i) this.logger.logEnd("EVENTS", js, i); resolve();
                                     }
                                 }
                             }
@@ -125,11 +204,11 @@ class Bot extends Eris.Client{
                                     try{
                                         this.commands[val] = require(`./commands/${val}.js`);
                                         this.logger.logFileLoaded(`./commands/${val}.js`);
-                                        if(files.length == i) this.logger.logEnd("COMMANDS", js, i);
+                                        if(files.length == i) this.logger.logEnd("COMMANDS", js, i); resolve();
                                     }catch(e){
                                         this.logger.logFileError(`./commands/${val}.js`, e);
                                         js--;
-                                        if(files.length == i) this.logger.logEnd("COMMANDS", js, i);
+                                        if(files.length == i) this.logger.logEnd("COMMANDS", js, i); resolve();
                                     }
                                 }
                             }
@@ -157,6 +236,7 @@ class Bot extends Eris.Client{
     init(){
         return new Promise((resolve, reject)=>{
             this.validateConfig()
+                .then(this.checkFolders())
                 .then(this.loadEvents())
                 .then(this.loadCommands())
                 .then(this.sendReady())

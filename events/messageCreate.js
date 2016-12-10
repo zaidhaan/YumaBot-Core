@@ -54,31 +54,29 @@ function sendHelpMessage(bot, msg, suffix, commands, config){
 	};
 	var cmdlen = 0;
 	if(!suffix){
-		var basic = [];
+		var tags = {};
 		var other = [];
-		var msgArray = [];
-		for(let cmd in commands){
-			if(commands[cmd].display == null || commands[cmd].display == true){
-				var info = "`"+config.prefix + cmd+"`";
-				if(commands[cmd].tag == "Basic"){
-					basic.push(" "+info);
-				}
-				if(!commands[cmd].tag || commands[cmd].tag == undefined){
-					other.push(" "+info);
-				}
-				/*
-				=== Adding More Tags === ("ExampleTag" tag example)
-				var exampletag = [];
-				if(commands[cmd].tag == "ExampleTag"){
-					exampletag.push(" "+info);
-				}
-				Then you can add this array into the message array below with some basic javascript knowledge like:
-				> replace line 75 with msgArray.push(`**Basic: **${basic}\n**ExampleTag :**${exampletag}\n**Other :**${other}`);
-				*/
+    	var keys = Object.keys(commands);
+    	for(var key in commands){
+			if(!tags[commands[key].tag]){
+				tags[commands[key].tag] = [];
 			}
+			tags[commands[key].tag].push(key)
 		}
-		msgArray.push(`**Basic: **${basic}\n**Other :**${other}`);
-		msgArray.push("\n**Tag Info**\n`Basic`: Most basic commands");
+		var datMsg = "";
+		for(var key in tags){
+			datMsg += `**${key}**: ${tags[key].join(", ")}\n`;
+		}
+		if(!commands[cmd].tag || commands[cmd].tag == undefined){
+			other.push(" "+info);
+		}
+
+		if(other.length !== 0){
+			msgArray.push(datMsg + `**Other :**${other}`);
+		}else{
+			msgArray.push(datMsg);
+		}
+		msgArray.push("\n**Tag Info**\n`Basic`: Most basic commands"); /* This is not a generatable string, this is also actually not that necessary, edit/delete this line if needed */
 		msgArray.push("\n\n**Want more information on the command?\nTry `>help <command-name>`**");
 		bot.getDMChannel(msg.author.id).then(c => {c.createMessage(msgArray.join("\n"))})
 	}

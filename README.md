@@ -62,7 +62,7 @@ module.exports = {
 ### Adding More Tags (help message):
 In the help message, you might like your own custom tags, here is how you will do it:
 
-First of all, on the commands you want the tag to be in, put it in like
+It's very simple! Just go to the file of the command in which you want to add the tag in, and just pop it in like shown below
 ```js
 module.exports = {
     tag: "ExampleTag",
@@ -71,7 +71,7 @@ module.exports = {
     }
 }
 ```
-Then go to `./events/messageCreate.js` and follow the instructions that are stated from line 62
+And that's it! The help command will automatically detect all the tags from all the files and generate them into groups of command names to each specific tag. *(behold, the power of code..!)*
 
 - - - -
 ## Features:

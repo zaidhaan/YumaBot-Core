@@ -7,7 +7,7 @@ var cleverbot = new Cleverbot();
 
 var lastExecTime = {};
 
-function execCommand(msg, cmd, suffix, bot, commands, logger){
+function execCommand(msg, cmd, suffix, bot, commands, logger, plugins){
 	if(commands[cmd].hasOwnProperty("cooldown")){
         if(!lastExecTime[cmd]) lastExecTime[cmd] = [];
 		if(!lastExecTime[cmd].hasOwnProperty(msg.author.id))
@@ -42,7 +42,7 @@ function execCommand(msg, cmd, suffix, bot, commands, logger){
 
 	try{
 		bot.commandsProcessed++;
-		commands[cmd].process(bot, msg, suffix);
+		commands[cmd].process(bot, msg, suffix, plugins);
 	}catch(e){
 		bot.createMessage("Command "+suffix+" failed to execute! Please inform the bot owner about this!");
 	}
@@ -111,7 +111,7 @@ function sendHelpMessage(bot, msg, suffix, commands, config){
 }
 
 module.exports = {
-    execute(bot, msg, config, commands, logger){
+    execute(bot, msg, config, commands, logger, plugins){
         if(!msg.channel.guild){
     		if(/(^https?:\/\/discord\.gg\/[A-Za-z0-9]+$|^https?:\/\/discordapp\.com\/invite\/[A-Za-z0-9]+$)/.test(msg.content)){
     			msg.channel.createMessage("**Please use this to invite me to your server: ** https://discordapp.com/oauth2/authorize?client_id="+config.clientID+"&scope=bot");
@@ -146,7 +146,7 @@ module.exports = {
             }
 			if(commands[cmdtxt]) cmd = cmdtxt;
             if(commands[cmd]){
-                execCommand(msg, cmd, suffix, bot, commands, logger);
+                execCommand(msg, cmd, suffix, bot, commands, logger, plugins);
             }
 
 			if(cmdtxt == "help" || cmdtxt == "halp"){

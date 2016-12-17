@@ -40,6 +40,7 @@ class Bot extends Eris.Client{
         this.logger = new logger(true);
         this.commands = {};
         this.events = {};
+        this.plugins = {};
         this.dCommands = defaultCommands;
         this.dEvents = defaultEvents;
     }
@@ -65,7 +66,7 @@ class Bot extends Eris.Client{
                         msg.channel.createMessage(result);
                         this.logger.logCommand(msg);
                     });
-                } else this.events.messageCreate.execute(this, msg, this.config, this.commands, this.logger);
+                } else this.events.messageCreate.execute(this, msg, this.config, this.commands, this.logger, this.plugins);
             });
         }
         if(val == "guildCreate"){
@@ -141,6 +142,41 @@ class Bot extends Eris.Client{
     					this.logger.dInfo("Added", `./events/${keysss[i]}.js`, true);
                     }
             }else resolve("kek");
+        });
+    }
+
+    loadPlugins(){
+        return new Promise((resolve, reject)=>{
+            fs.access('./plugins', fs.constants.R_OK | fs.constants.W_OK, (err) => {
+                if(err){
+                    return console.log('Plugins folder does not exist!');
+                }else{
+                    fs.readdir("./plugins/", (err, files)=>{
+                        if(err) reject("Could not read plugins folder!");
+                        if(!files || files.length == 0){
+                            console.log("No files found in plugins folder!");
+                        }else{
+                            var js = 0;
+                            var i = 0;
+                            for(let val of files){
+                                i++
+                                if(val.endsWith(".js")){
+                                    js++
+                                    val = val.replace(/\.js$/, ""); // replace the value which ends .js with nothing
+                                    try{
+                                        plugins[val] = require(`./plugins/${val}.js`);
+                                        if(files.length == i) resolve();
+                                    }catch(e){
+                                        console.log(`Error loading ./plugins/${val}.js`, e);
+                                        js--;
+                                        if(files.length == i) resolve();
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+            });
         });
     }
 
@@ -239,6 +275,7 @@ class Bot extends Eris.Client{
                 .then(this.checkFolders())
                 .then(this.loadEvents())
                 .then(this.loadCommands())
+                .then(this.loadPlugins())
                 .then(this.sendReady())
                 .catch(e => reject("Error during init: "+e));
         });

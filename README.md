@@ -25,7 +25,8 @@ bot.connect();
 ```
 You could also replace the object within Yuma with `new Yuma(config)` where config would be a json file containing those contents.
 
-And that's it! for the first time when you run it there is a change of errors, but that's ok, you can just type CTRL+C in cmd to exit it and just try running it again and it *should* be fine :smiley:
+And that's it!  
+**NOTE:** For the first time when you run it there may be some errors, but that's ok, you can just type CTRL+C in cmd to exit it and just try running it again and it *should* be fine :smiley:
 
 
 ### Example Command:
@@ -87,9 +88,8 @@ And that's it! The help command will automatically detect all the tags from all 
 
 ---
 
-> * Commands and Events nested in folders
->
-> > this also makes it easier to add/edit commands
+> * Commands and Events nested in folders  
+> *this also makes it easier to add/edit commands*
 >
 > ![Image 3](http://i.imgur.com/rn5lXMJ.png)
 >
@@ -99,3 +99,9 @@ And that's it! The help command will automatically detect all the tags from all 
 > * Configurable Commands and Events
 >
 > ![Image 3](http://i.imgur.com/u1SfmQs.png)
+
+---
+
+> * Plugins.  
+> *With plugins you can dump all short scripts or functions into a file in the plugins folder to avoid flood of files/code*
+> ![Image 4](http://i.imgur.com/4PQNcEd.png)

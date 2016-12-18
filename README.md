@@ -104,4 +104,4 @@ And that's it! The help command will automatically detect all the tags from all 
 
 > * Plugins.  
 > *With plugins you can dump all short scripts or functions into a file in the plugins folder to avoid flood of files/code*
-> ![Image 4](http://i.imgur.com/4PQNcEd.png)
+> ![Image 4](http://i.imgur.com/ucatKap.png)

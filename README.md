@@ -23,10 +23,13 @@ var bot = new Yuma({
 
 bot.connect();
 ```
+3. Next, Run the code. The first time you run the code you will recieve a message like shown below:  
+ "*Done initializing the command/event folders! Please run the code again to begin*"  
+ That means it finished creating the default commands and events, so now you are ready to run the code again and you will be ready to go! :smiley:
+
 You could also replace the object within Yuma with `new Yuma(config)` where config would be a json file containing those contents.
 
-And that's it!  
-**NOTE:** For the first time when you run it there may be some errors, but that's ok, you can just type CTRL+C in cmd to exit it and just try running it again and it *should* be fine :smiley:
+And that's it!  :thumbsup:
 
 
 ### Example Command:
@@ -76,32 +79,28 @@ And that's it! The help command will automatically detect all the tags from all 
 
 - - - -
 ## Features:
-> * **Beautiful** logs :tada:
->
-> ![Image 1](http://i.imgur.com/tXjzpFt.png)
+* **Beautiful** logs :tada:  
+![Image 1](http://i.imgur.com/tXjzpFt.png)
 
 ---
 
-> * Easy to spot errors
->
->  ![Image 2](http://i.imgur.com/VjRSPve.png)
+ * Easy to spot errors  
+![Image 2](http://i.imgur.com/VjRSPve.png)
 
 ---
 
-> * Commands and Events nested in folders  
-> *this also makes it easier to add/edit commands*
->
-> ![Image 3](http://i.imgur.com/rn5lXMJ.png)
->
+ * Commands and Events nested in folders  
+ *this also makes it easier to add/edit commands*  
+![Image 3](http://i.imgur.com/rn5lXMJ.png)  
+
 
 ---
 
-> * Configurable Commands and Events
->
-> ![Image 3](http://i.imgur.com/u1SfmQs.png)
+ * Configurable Commands and Events  
+![Image 3](http://i.imgur.com/u1SfmQs.png)
 
 ---
 
-> * Plugins.  
-> *With plugins you can dump all short scripts or functions into a file in the plugins folder to avoid flood of files/code*
-> ![Image 4](http://i.imgur.com/ucatKap.png)
+ * Plugins.    
+ *With plugins you can dump all short scripts or functions into a file in the plugins folder to avoid flood of files/code*  
+![Image 4](http://i.imgur.com/ucatKap.png)

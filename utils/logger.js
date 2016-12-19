@@ -35,6 +35,14 @@ class Logger{
         console.log(`${this.timestamp} ${message}`);
     }
 
+    logCustom(message, color, ts){
+        if(ts && ts == true){
+            console.log(`${this.timestamp} ${chalk[color](message)}`);
+        }else{
+            console.log(`${chalk[color](message)}`);
+        }
+    }
+
     dInfo(one, two, swich){
         if(two){
             if(swich && swich == true){

@@ -270,15 +270,23 @@ class Bot extends Eris.Client{
     }
 
     init(){
-        return new Promise((resolve, reject)=>{
-            this.validateConfig()
-                .then(this.checkFolders())
-                .then(this.loadEvents())
-                .then(this.loadCommands())
-                .then(this.loadPlugins())
-                .then(this.sendReady())
-                .catch(e => reject("Error during init: "+e));
-        });
+        if(fs.existsSync("./commands") && fs.existsSync("./events")){
+            return new Promise((resolve, reject)=>{
+                this.validateConfig()
+                    .then(this.loadEvents())
+                    .then(this.loadCommands())
+                    .then(this.loadPlugins())
+                    .then(this.sendReady())
+                    .catch(e => reject("Error during init: "+e));
+            });
+        }else{
+            return new Promise((resolve) => {
+                this.checkFolders().then(() => {
+                    this.logger.logCustom("Done initializing the command/event folders! Please run the code again to begin", "bgMagenta");
+                    process.exit(0);
+                });
+            });
+        }
     }
 
     updateCarbon(key){

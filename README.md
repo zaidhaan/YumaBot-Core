@@ -23,7 +23,7 @@ var bot = new Yuma({
 
 bot.connect();
 ```
-3. Next, Run the code. The first time you run the code you will recieve a message like shown below:  
+Next, Run the code. The first time you run the code you will recieve a message like shown below:  
  "*Done initializing the command/event folders! Please run the code again to begin*"  
  That means it finished creating the default commands and events, so now you are ready to run the code again and you will be ready to go! :smiley:
 

@@ -7,6 +7,7 @@ var logger = require("./utils/logger.js");*/
 var validateConfig = require(path.join(__dirname, 'utils')+"/validateConfig.js")
 var logger = require(path.join(__dirname, 'utils')+"/logger.js");
 var reload = require("require-reload")(require);
+var Command = require("./utils/commandClass.js");
 
 var defaultCommands = {};
 var defaultEvents = {};
@@ -31,7 +32,7 @@ class Bot extends Eris.Client{
         });
 
         this.on("error", (error)=>{
-            this.logger.error(error);
+            this.logger.error(error.stack);
         });
 
         this.commandsProcessed = 0;
@@ -238,7 +239,7 @@ class Bot extends Eris.Client{
                                     js++
                                     val = val.replace(/\.js$/, ""); // replace the value which ends .js with nothing
                                     try{
-                                        this.commands[val] = require(`./commands/${val}.js`);
+                                        this.commands[val] = new Command(val, require(`./commands/${val}.js`), this.config);
                                         this.logger.logFileLoaded(`./commands/${val}.js`);
                                         if(files.length == i) this.logger.logEnd("COMMANDS", js, i); resolve();
                                     }catch(e){

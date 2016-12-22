@@ -58,7 +58,7 @@ module.exports = {
     execute(bot, msg, config, commands, logger, plugins){
         if(!msg.channel.guild){
     		if(/(^https?:\/\/discord\.gg\/[A-Za-z0-9]+$|^https?:\/\/discordapp\.com\/invite\/[A-Za-z0-9]+$)/.test(msg.content)){
-    			msg.channel.createMessage("**Please use this to invite me to your server: ** https://discordapp.com/oauth2/authorize?client_id="+config.clientID+"&scope=bot");
+    			if(config.clientID && config.clientID !== "") msg.channel.createMessage("**Please use this to invite me to your server: ** https://discordapp.com/oauth2/authorize?client_id="+config.clientID+"&scope=bot");
     		}
     	}
         if(msg.author.bot){

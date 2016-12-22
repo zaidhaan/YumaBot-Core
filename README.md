@@ -44,6 +44,9 @@ module.exports = {
     tag: "Basic", // A tag
     description: "Responds with what you said is kawaii", // Short description of the command
     usage: "<name>", // Usage of the command
+	perms: { // Object containing required/non-required perms for using the command
+		manageMessages: true
+	},
     process: function(bot, msg, suffix){ // Process function of the command
         if(suffix){
             bot.createMessage(msg.channel.id, suffix + " is kawaii! :3");
@@ -104,3 +107,13 @@ And that's it! The help command will automatically detect all the tags from all 
  * Plugins.    
  *With plugins you can dump all short scripts or functions into a file in the plugins folder to avoid flood of files/code*  
 ![Image 4](http://i.imgur.com/ucatKap.png)
+
+---
+
+### Other Features
+* In-Built Reload Command
+* In-Built Eval Command
+* Help Message Generator
+* Display Errors without bot crashing  
+
+And more..!

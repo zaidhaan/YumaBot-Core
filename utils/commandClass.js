@@ -29,7 +29,7 @@ ${this.ownerOnly && this.ownerOnly == true ? "**Owner Only:** "+this.ownerOnly :
     }
 
     exec(bot, msg, suffix, plugins, logger){
-        var cmd = this.name
+        var cmd = this.name;
     	if(this.hasOwnProperty("cooldown")){
     		if(!this.lastExecTime.hasOwnProperty(msg.author.id))
     			this.lastExecTime[msg.author.id] = Date.now();
@@ -46,29 +46,42 @@ ${this.ownerOnly && this.ownerOnly == true ? "**Owner Only:** "+this.ownerOnly :
     		}
     	}
     	logger.logCommand(msg);
-    	/*if(msg.channel.guild) console.log(msg.channel.guild.name+" : #"+msg.channel.name+" : "+msg.author.username+" : "+msg.cleanContent.replace(/\n/g, " "));
-    	else console.log(msg.author.username+" : "+msg.cleanContent.replace(/\n/g, " "));*/
     	if(this.guildOnly && this.guildOnly == true){
     		if(!msg.guild) return bot.createMessage(msg.channel.id, msg.author.username.replace(/@/g, "@\u200b")+", this command can only be executed in a guild!");
     	}
     	if(this.ownerOnly && this.ownerOnly == true){
     		if(msg.author.id !== config.ownerId) return bot.createMessage(msg.channel.id, msg.author.username.replace(/@/g, "@\u200b")+", this command is restricted to the owner only!");
     	}
-        /*
-        TODO: Permissions
-        */
     	if(this.perms){
-    		if(!msg.member.permission.has(this.perms)){
-    			return bot.createMessage(msg.channel.id, msg.author.username.replace(/@/g, "@\u200b")+", you must have **"+this.perms+"** permission to execute this command!");
-    		}
-    	}
+            if(msg.channel.guild && !this.checkPerms(msg)){
+                var m = [];
+                Object.keys(this.perms).forEach((p) => {let z = (this.perms[p] == true) ? "should have **"+p+"**" : "shouldn't have **"+p+"**"; m.push(z)})
+                return bot.createMessage(msg.channel.id, `**${msg.author.username}**, You ${m.join(", ")} permissions to execute this command!`);
+            }
+        }
 
     	try{
+            this.execTimes++;
     		bot.commandsProcessed++;
     		this.process(bot, msg, suffix, plugins);
     	}catch(e){
     		bot.createMessage("Command "+this.name+" failed to execute! Please inform the bot owner about this!");
     	}
+    }
+
+    checkPerms(msg){
+        let hasPermission = true;
+        if(this.perms !== null && msg.channel.guild){
+            let keys = Object.keys(this.perms);
+            let uPerms = msg.channel.permissionsOf(msg.author.id).json;
+            for(let key of keys){
+                if(this.perms[key] !== uPerms[key]){
+                    hasPermission = false;
+                    break;
+                }
+            }
+        }
+        return hasPermission;
     }
 }
 

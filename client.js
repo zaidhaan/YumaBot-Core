@@ -32,7 +32,7 @@ class Bot extends Eris.Client{
         });
 
         this.on("error", (error)=>{
-            this.logger.error(error.stack);
+            this.logger.error(error);
         });
 
         this.commandsProcessed = 0;
@@ -59,7 +59,7 @@ class Bot extends Eris.Client{
                         return this.logger.error(e);
                     }
                     delete this.commands[suffix];
-                    this.commands[suffix] = neew;
+                    this.commands[suffix] = new Command(suffix, require(`./commands/${suffix}.js`), this.config);
                     msg.channel.createMessage(`Sucessfully reloaded command **${suffix}**!`);
                 }
                 if(msg.content.startsWith(this.config.prefix + "eval") && msg.author.id == this.config.ownerId){

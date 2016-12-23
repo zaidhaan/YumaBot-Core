@@ -1,5 +1,5 @@
-var c = require("chalk");
-var chalk = new c.constructor({enabled: true});
+const c = require("chalk");
+let chalk = new c.constructor({enabled: true});
 
 class Logger{
     constructor(logTimestamp){

@@ -29,12 +29,12 @@ ${this.ownerOnly && this.ownerOnly == true ? "**Owner Only:** "+this.ownerOnly :
     }
 
     exec(bot, msg, suffix, plugins, logger){
-        var cmd = this.name;
+        let cmd = this.name;
     	if(this.hasOwnProperty("cooldown")){
     		if(!this.lastExecTime.hasOwnProperty(msg.author.id))
     			this.lastExecTime[msg.author.id] = Date.now();
     		else{
-    			var now = Date.now();
+    			let now = Date.now();
     			if(now < this.lastExecTime[msg.author.id] + (this.cooldown * 1000)){
     				msg.channel.createMessage(msg.author.username.replace(/@/g, "@\u200b")+", you need to *cooldown* (" + Math.round(((this.lastExecTime[msg.author.id] + this.cooldown * 1000) - now) / 1000) + " seconds)").then(m=>{setTimeout(()=>{bot.deleteMessage(m.channel.id, m.id)}, 8000)});
                     if(msg.guild && msg.guild.members.get(bot.user.id).permission.has("manageMessages")){
@@ -54,7 +54,7 @@ ${this.ownerOnly && this.ownerOnly == true ? "**Owner Only:** "+this.ownerOnly :
     	}
     	if(this.perms){
             if(msg.channel.guild && !this.checkPerms(msg)){
-                var m = [];
+                let m = [];
                 Object.keys(this.perms).forEach((p) => {let z = (this.perms[p] == true) ? "should have **"+p+"**" : "shouldn't have **"+p+"**"; m.push(z)})
                 return bot.createMessage(msg.channel.id, `**${msg.author.username}**, You ${m.join(", ")} permissions to execute this command!`);
             }

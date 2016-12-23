@@ -1,16 +1,16 @@
-var Eris = require("eris");
-var fs = require("fs");
-var path = require("path");
-var request = require("request");
+const Eris = require("eris");
+const fs = require("fs");
+const path = require("path");
+const request = require("request");
 /*var validateConfig = require("./utils/validateConfig.js")
 var logger = require("./utils/logger.js");*/
-var validateConfig = require(path.join(__dirname, 'utils')+"/validateConfig.js")
-var logger = require(path.join(__dirname, 'utils')+"/logger.js");
-var reload = require("require-reload")(require);
-var Command = require("./utils/commandClass.js");
+const validateConfig = require(path.join(__dirname, 'utils')+"/validateConfig.js")
+let logger = require(path.join(__dirname, 'utils')+"/logger.js");
+let reload = require("require-reload")(require);
+let Command = require("./utils/commandClass.js");
 
-var defaultCommands = {};
-var defaultEvents = {};
+let defaultCommands = {};
+let defaultEvents = {};
 
 require("fs").readdirSync(path.join(__dirname, 'commands')).forEach(function(file) {
   defaultCommands[file.substring(0, file.length - 3)] = require("./commands/" + file);
@@ -50,9 +50,9 @@ class Bot extends Eris.Client{
         if(val == "messageCreate"){
             this.on(val, (msg)=>{
                 if(msg.content.startsWith(this.config.prefix + "reload") && msg.author.id == this.config.ownerId){
-                    var suffix = msg.content.substring(this.config.prefix.length + 6).trim();
+                    let suffix = msg.content.substring(this.config.prefix.length + 6).trim();
                     if(!this.commands[suffix]) return msg.channel.createMessage(`Command **${suffix}** does not exist!`);
-                    var neew;
+                    let neew;
                     try{
                         neew = reload(`./commands/${suffix}.js`)
                     }catch(e){
@@ -87,9 +87,9 @@ class Bot extends Eris.Client{
             if (!fs.existsSync("./commands")){
                 this.logger.dInfo("./commands/", "Does not exist, Attempting to create ./commands/ with default commands...");
                 fs.mkdirSync("commands");
-                var keys = Object.keys(this.dCommands);
-                var j;
-                for(var i = 0; i < keys.length; i++){
+                let keys = Object.keys(this.dCommands);
+                let j;
+                for(let i = 0; i < keys.length; i++){
 					j = keys[i]+".js";
                     fs.readFile(path.join(__dirname, "commands", j), 'utf8', (err, data) => {
                         if (err) reject(err);
@@ -104,12 +104,12 @@ class Bot extends Eris.Client{
                 if(!fs.existsSync("./events")){
                     this.logger.dInfo("./events/", "Does not exist, Attempting to create ./events/ with default events...");
                     fs.mkdirSync("events");
-                    var keyss = Object.keys(this.dEvents);
-                    var e;
+                    let keyss = Object.keys(this.dEvents);
+                    let e;
                     e = keyss;
     				keyss.forEach(es => e[keyss.indexOf(es)] = es+".js");
     				//e = ["guildCreate.js", "guildDelete.js", "messageCreate.js"];
-                    var logr = this.logger
+                    let logr = this.logger
                     function kek(){
                         fs.readFile(path.join(__dirname, "events", e[0]), 'utf8', (err, data) => {
                             if (err) reject(err);
@@ -130,9 +130,9 @@ class Bot extends Eris.Client{
             }else if(!fs.existsSync("./events")){
                 this.logger.dInfo("./events/", "Does not exist, Attempting to create ./events/ with default events...");
                     fs.mkdirSync("events");
-                    var keysss = Object.keys(this.dEvents);
-                    var k;
-                    for(var i = 0; i < keysss.length; i++){
+                    let keysss = Object.keys(this.dEvents);
+                    let k;
+                    for(let i = 0; i < keysss.length; i++){
     					k = keysss[i]+".js";
                         fs.readFile(path.join(__dirname, "events", k), 'utf8', (err, data) => {
                             if (err) reject(err);
@@ -157,8 +157,8 @@ class Bot extends Eris.Client{
                         if(!files || files.length == 0){
                             console.log("No files found in plugins folder!");
                         }else{
-                            var js = 0;
-                            var i = 0;
+                            let js = 0;
+                            let i = 0;
                             for(let val of files){
                                 i++
                                 if(val.endsWith(".js")){
@@ -193,8 +193,8 @@ class Bot extends Eris.Client{
                         if(!files || files.length == 0){
                             reject("No files found in events folder!");
                         }else{
-                            var js = 0;
-                            var i = 0;
+                            let js = 0;
+                            let i = 0;
                             for(let val of files){
                                 i++
                                 if(val.endsWith(".js")){
@@ -231,8 +231,8 @@ class Bot extends Eris.Client{
                         if(!files || files.length == 0){
                             reject("No files found in commands folder!");
                         }else{
-                            var js = 0;
-                            var i = 0;
+                            let js = 0;
+                            let i = 0;
                             for(let val of files){
                                 i++
                                 if(val.endsWith(".js")){
@@ -331,8 +331,8 @@ class Bot extends Eris.Client{
     }
 
     evaluate(msg, callback){
-        var code = msg.content.substring(this.config.prefix.length + 4).trim();
-        var result = "No Result!";
+        let code = msg.content.substring(this.config.prefix.length + 4).trim();
+        let result = "No Result!";
         try{
             result = eval("let bot = this;\n"+code);
         }catch(e){

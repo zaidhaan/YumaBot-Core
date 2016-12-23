@@ -1,4 +1,4 @@
-var reload = require("require-reload")(require);
+const reload = require("require-reload")(require);
 
 module.exports = function(config, logger){
     return new Promise((resolve, reject) => {

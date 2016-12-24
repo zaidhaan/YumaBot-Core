@@ -44,8 +44,14 @@ function sendHelpMessage(bot, msg, suffix, commands, config){
 			if(commands[suffix]){
 				bot.createMessage(msg.channel.id, commands[suffix].help);
 			}else{
-				bot.createMessage(msg.channel.id, msg.author.username+", There is no such\""+suffix+"\" command!");
-				return;
+				let found = false;
+				for(let key in commands){
+					if(commands[key].aliases && commands[key].aliases.includes(suffix)){
+						found = true;
+						bot.createMessage(msg.channel.id, commands[key].help);
+					}
+				}
+				if(!found) bot.createMessage(msg.channel.id, msg.author.username+", There is no such\""+suffix+"\" command!");
 			}
 		}else{
 			bot.createMessage(msg.channel.id, "Please execute this in DM")

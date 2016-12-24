@@ -47,7 +47,6 @@ function sendHelpMessage(bot, msg, suffix, commands, config){
 				bot.createMessage(msg.channel.id, msg.author.username+", There is no such\""+suffix+"\" command!");
 				return;
 			}
-			bot.createMessage(msg.channel.id, msgArr.join("\n"));
 		}else{
 			bot.createMessage(msg.channel.id, "Please execute this in DM")
 		}

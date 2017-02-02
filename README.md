@@ -13,12 +13,13 @@ Visit the [gallery](http://imgur.com/a/Rwz1m) to see some pictures of what this 
 ```js
 var Yuma = require("yumabot-core");
 var bot = new Yuma({
-	"token": "TOKEN", // required
-    "prefix": ">", // required
-    "ownerId": "OWNER_ID", // required
-    "dbotsApiKey": "DBOTS_KEY", // not required
-    "carbonKey": "CARBON_KEY", // not required
-    "cleverbot": true
+	  "token": "TOKEN", // (required) The token of your bot
+    "prefix": ">", // (required) The prefix of the commands of the bot
+    "ownerId": "OWNER_ID", // (required) The ID of the user acting as the bots owner
+    "dbotsApiKey": "DBOTS_KEY", // (not required) bots.discord.pw api key
+    "carbonKey": "CARBON_KEY", // (not required) carbonitex api key
+    "cleverbot": true, // (not required) whether or not to enabled cleverbot (talking with the bot with @mention)
+		"commandSpaces": true, // (no required) if true, then it will allow a space between the prefix and command like, would work for both "[prefix] [command]" and "[prefix][command]", if set as false, it will not allow a space between command and prefix, would only react to "[prefix][command]"
 });
 
 bot.connect();

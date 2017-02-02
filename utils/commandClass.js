@@ -50,7 +50,7 @@ ${this.ownerOnly && this.ownerOnly == true ? "**Owner Only:** "+this.ownerOnly :
     		if(!msg.guild) return bot.createMessage(msg.channel.id, msg.author.username.replace(/@/g, "@\u200b")+", this command can only be executed in a guild!");
     	}
     	if(this.ownerOnly && this.ownerOnly == true){
-    		if(msg.author.id !== config.ownerId) return bot.createMessage(msg.channel.id, msg.author.username.replace(/@/g, "@\u200b")+", this command is restricted to the owner only!");
+    		if(msg.author.id !== bot.config.ownerId) return bot.createMessage(msg.channel.id, msg.author.username.replace(/@/g, "@\u200b")+", this command is restricted to the owner only!");
     	}
     	if(this.perms){
             if(msg.channel.guild && !this.checkPerms(msg)){

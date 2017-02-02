@@ -40,7 +40,7 @@ function sendHelpMessage(bot, msg, suffix, commands, config){
 		bot.getDMChannel(msg.author.id).then(c => {c.createMessage(msgArray.join("\n"))})
 	}
 	if(suffix){
-		if(!msg.guild){
+		if(!msg.channel.guild){
 			if(commands[suffix]){
 				bot.createMessage(msg.channel.id, commands[suffix].help);
 			}else{

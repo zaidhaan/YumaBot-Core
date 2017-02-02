@@ -37,7 +37,7 @@ ${this.ownerOnly && this.ownerOnly == true ? "**Owner Only:** "+this.ownerOnly :
     			let now = Date.now();
     			if(now < this.lastExecTime[msg.author.id] + (this.cooldown * 1000)){
     				msg.channel.createMessage(msg.author.username.replace(/@/g, "@\u200b")+", you need to *cooldown* (" + Math.round(((this.lastExecTime[msg.author.id] + this.cooldown * 1000) - now) / 1000) + " seconds)").then(m=>{setTimeout(()=>{bot.deleteMessage(m.channel.id, m.id)}, 8000)});
-                    if(msg.guild && msg.guild.members.get(bot.user.id).permission.has("manageMessages")){
+                    if(msg.channel.guild && msg.channel.guild.members.get(bot.user.id).permission.has("manageMessages")){
                         setTimeout(()=>{bot.deleteMessage(msg.channel.id, msg.id)}, 8000);
                     }
     				return;
@@ -47,7 +47,7 @@ ${this.ownerOnly && this.ownerOnly == true ? "**Owner Only:** "+this.ownerOnly :
     	}
     	logger.logCommand(msg);
     	if(this.guildOnly && this.guildOnly == true){
-    		if(!msg.guild) return bot.createMessage(msg.channel.id, msg.author.username.replace(/@/g, "@\u200b")+", this command can only be executed in a guild!");
+    		if(!msg.channel.guild) return bot.createMessage(msg.channel.id, msg.author.username.replace(/@/g, "@\u200b")+", this command can only be executed in a guild!");
     	}
     	if(this.ownerOnly && this.ownerOnly == true){
     		if(msg.author.id !== bot.config.ownerId) return bot.createMessage(msg.channel.id, msg.author.username.replace(/@/g, "@\u200b")+", this command is restricted to the owner only!");

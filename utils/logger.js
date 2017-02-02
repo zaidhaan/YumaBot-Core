@@ -11,7 +11,7 @@ class Logger{
     }
 
     logCommand(msg){
-        if(msg.guild) console.log(this.timestamp + chalk.bold.magenta(msg.channel.guild.name)+" : "+chalk.yellow("#"+msg.channel.name)+" : "+chalk.bold.green(msg.author.username)+" : "+chalk.bold.cyan(msg.cleanContent.replace(/\n/g, " ")));
+        if(msg.channel.guild) console.log(this.timestamp + chalk.bold.magenta(msg.channel.guild.name)+" : "+chalk.yellow("#"+msg.channel.name)+" : "+chalk.bold.green(msg.author.username)+" : "+chalk.bold.cyan(msg.cleanContent.replace(/\n/g, " ")));
 		else console.log(this.timestamp + chalk.bold.green(msg.author.username)+" : "+chalk.bold.cyan(msg.cleanContent.replace(/\n/g, " ")));
     }
 

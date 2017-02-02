@@ -70,8 +70,11 @@ module.exports = {
         	return;
         }
         if(msg.author.id != bot.user.id && (msg.content.startsWith(config.prefix) || msg.content.indexOf(bot.user.mention) == 0)){
-            let cmdtxt = msg.content.split(" ")[0].substring(config.prefix.length);
-            let suffix = msg.content.substring(config.prefix.length + cmdtxt.length + 1);
+					let cmdtxt = msg.content.substring(config.prefix.length).split(" ")[0];
+					if (config.commandSpaces && config.commandSpaces == true) {
+						cmdtxt = msg.content.substring(config.prefix.length).trim().split(" ")[0]
+					}
+					let suffix = msg.content.substring(config.prefix.length + cmdtxt.length + 1).trim();
             if(msg.content.indexOf(bot.user.mention) == 0){
                 if(msg.content.length == bot.user.mention.length){
                     bot.createMessage(msg.channel.id, "Yeah?");
@@ -93,6 +96,7 @@ module.exports = {
                     cmd = name;
                 }
             }
+						if(cmdtxt == "" || cmdtxt == null) return;
 			if(commands[cmdtxt]) cmd = cmdtxt;
             if(commands[cmd]){
                 commands[cmd].exec(bot, msg, suffix, plugins, logger);

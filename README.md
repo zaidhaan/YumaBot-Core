@@ -9,17 +9,17 @@ Visit the [gallery](http://imgur.com/a/Rwz1m) to see some pictures of what this 
 > Fun Fact: The bot can automatically create the commands and events folder with default files in it so you don't need to copy and paste every thing in the GitHub repository
 
 1. In the command line execute `npm install yumabot-core --save`
-2. Create a js file with the following contents:
+2. Create a js file with the following contents: ( see [configuration](#configuration) on how to configure these options )
 ```js
 var Yuma = require("yumabot-core");
 var bot = new Yuma({
-	  "token": "TOKEN", // (required) The token of your bot
-    "prefix": ">", // (required) The prefix of the commands of the bot
-    "ownerId": "OWNER_ID", // (required) The ID of the user acting as the bots owner
-    "dbotsApiKey": "DBOTS_KEY", // (not required) bots.discord.pw api key
-    "carbonKey": "CARBON_KEY", // (not required) carbonitex api key
-    "cleverbot": true, // (not required) whether or not to enabled cleverbot (talking with the bot with @mention)
-		"commandSpaces": true, // (no required) if true, then it will allow a space between the prefix and command like, would work for both "[prefix] [command]" and "[prefix][command]", if set as false, it will not allow a space between command and prefix, would only react to "[prefix][command]"
+	 "token": "TOKEN",
+    "prefix": ">",
+    "ownerId": "OWNER_ID",
+    "dbotsApiKey": "DBOTS_KEY",
+    "carbonKey": "CARBON_KEY",
+    "cleverbot": true,
+	"commandSpaces": true
 });
 
 bot.connect();
@@ -32,6 +32,15 @@ You could also replace the object within Yuma with `new Yuma(config)` where conf
 
 And that's it!  :thumbsup:
 
+
+### Configuration
+* **token**: Token of your bot. Taken from [here](https://discordapp.com/developers/applications/me)
+* **prefix**: Prefix of your bot. The text that should be followed by a command name to work
+* **ownerId**: User ID of the user the bot will be treating as the owner
+* **dbotsApiKey** *(optional)*: Api key from [bots.discord.pw](https://bots.discord.pw/)
+* **carbonKey** *(optional)*: Api key from [carbonitex](https://www.carbonitex.net/discord/bots)
+* **cleverbot**: Whether the bot should react to @mention or not
+* **commandSpaces** *(optional)*: If true, then it will allow a space between the prefix and command like, would work for **both** `[prefix] [command]` and `[prefix][command]`, if set as false, it will not allow a space between command and prefix, would **only** react to `[prefix][command]`
 
 ### Example Command:
 Create a new javascript file in `./commands/` and add the following:

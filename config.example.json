@@ -4,5 +4,6 @@
     "ownerId": "118547889931812868",
     "dbotsApiKey": "",
     "carbonKey": "",
-    "cleverbot": true
+    "cleverbot": true,
+    "commandSpaces": true
 }

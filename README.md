@@ -19,6 +19,8 @@ var bot = new Yuma({
     "dbotsApiKey": "DBOTS_KEY",
     "carbonKey": "CARBON_KEY",
     "cleverbot": true,
+		"cleverbotUser": "CLEVERBOT_API_USER",
+		"cleverbotKey": "CLEVERBOT_API_KEY",
 	"commandSpaces": true
 });
 
@@ -40,6 +42,8 @@ And that's it!  :thumbsup:
 * **dbotsApiKey** *(optional)*: Api key from [bots.discord.pw](https://bots.discord.pw/)
 * **carbonKey** *(optional)*: Api key from [carbonitex](https://www.carbonitex.net/discord/bots)
 * **cleverbot**: Whether the bot should react to @mention or not
+* **cleverbotUser**: *(required for cleverbot)* The user key for cleverbot from [cleverbot.io](https://cleverbot.io/)
+* **cleverbotKey**: *(required for cleverbot)* The api key for cleverbot from [cleverbot.io](https://cleverbot.io/)
 * **commandSpaces** *(optional)*: If true, then it will allow a space between the prefix and command like, would work for **both** `[prefix] [command]` and `[prefix][command]`, if set as false, it will not allow a space between command and prefix, would **only** react to `[prefix][command]`
 
 ### Example Command:

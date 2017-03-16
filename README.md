@@ -13,7 +13,7 @@ Visit the [gallery](http://imgur.com/a/Rwz1m) to see some pictures of what this 
 ```js
 var Yuma = require("yumabot-core");
 var bot = new Yuma({
-	 "token": "TOKEN",
+    "token": "TOKEN",
     "prefix": ">",
     "ownerId": "OWNER_ID",
     "dbotsApiKey": "DBOTS_KEY",
@@ -21,7 +21,7 @@ var bot = new Yuma({
     "cleverbot": true,
 		"cleverbotUser": "CLEVERBOT_API_USER",
 		"cleverbotKey": "CLEVERBOT_API_KEY",
-	"commandSpaces": true
+		"commandSpaces": true
 });
 
 bot.connect();

@@ -19,9 +19,9 @@ var bot = new Yuma({
     "dbotsApiKey": "DBOTS_KEY",
     "carbonKey": "CARBON_KEY",
     "cleverbot": true,
-		"cleverbotUser": "CLEVERBOT_API_USER",
-		"cleverbotKey": "CLEVERBOT_API_KEY",
-		"commandSpaces": true
+    "cleverbotUser": "CLEVERBOT_API_USER",
+    "cleverbotKey": "CLEVERBOT_API_KEY",
+    "commandSpaces": true
 });
 
 bot.connect();

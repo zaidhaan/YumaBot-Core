@@ -5,5 +5,7 @@
     "dbotsApiKey": "",
     "carbonKey": "",
     "cleverbot": true,
+    "cleverbotUser": "",
+    "cleverbotKey": "",
     "commandSpaces": true
 }

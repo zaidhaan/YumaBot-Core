@@ -2,6 +2,7 @@ const Eris = require("eris");
 const fs = require("fs");
 const path = require("path");
 const request = require("request");
+const cleverbot = require("cleverbot.io");
 /*var validateConfig = require("./utils/validateConfig.js")
 var logger = require("./utils/logger.js");*/
 const validateConfig = require(path.join(__dirname, 'utils') + "/validateConfig.js")
@@ -37,6 +38,7 @@ class Bot extends Eris.Client {
 
         this.commandsProcessed = 0;
         this.cleverResponses = 0;
+        this.cleverbot = {};
         this.config = config;
         this.logger = new logger(true);
         this.commands = {};
@@ -281,6 +283,7 @@ class Bot extends Eris.Client {
                 this.validateConfig()
                     .then(this.loadEvents())
                     .then(this.loadCommands())
+                    .then(this.initCleverbot())
                     .then(this.loadPlugins())
                     .then(this.sendReady())
                     .catch(e => reject("Error during init: " + e));
@@ -334,6 +337,24 @@ class Bot extends Eris.Client {
             if (error) return this.logger.error("Error updating Discord Bots stats: " + error);
             if (response.statusCode !== 200) return this.logger.error("Error updating Discord Bots stats: Status Code " + response.statusCode);
             this.logger.debug("Updated Discord Bots guild count");
+        });
+    }
+
+    initCleverbot(user, key, sName = Date.now()) {
+        return new Promise((resolve, reject) => {
+            let u = user || this.config.cleverbotUser;
+            let k = key || this.config.cleverbotKey;
+            if(this.config.cleverbot == false) resolve();
+            let cb = new cleverbot(u, k);
+            cb.setNick(sName);
+            cb.create((err, session) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    this.cleverbot = cb;
+                    resolve();
+                }
+            });
         });
     }
 

@@ -11,8 +11,8 @@ Visit the [gallery](http://imgur.com/a/Rwz1m) to see some pictures of what this 
 1. In the command line execute `npm install yumabot-core --save`
 2. Create a js file with the following contents: ( see [configuration](#configuration) on how to configure these options )
 ```js
-var Yuma = require("yumabot-core");
-var bot = new Yuma({
+const Yuma = require("yumabot-core");
+const bot = new Yuma({
     "token": "TOKEN",
     "prefix": ">",
     "ownerId": "OWNER_ID",
@@ -61,10 +61,10 @@ module.exports = {
 	perms: { // Object containing required/non-required perms for using the command
 		manageMessages: true
 	},
-    process: function(bot, msg, suffix){ // Process function of the command
-        if(suffix){
+    process(bot, msg, suffix) { // Process function of the command
+        if(suffix) {
             bot.createMessage(msg.channel.id, suffix + " is kawaii! :3");
-        }else bot.createMessage(msg.channel.id, "Please try again with some arguments")
+        } else bot.createMessage(msg.channel.id, "Please try again with some arguments")
     }
 }
 ```
@@ -74,8 +74,8 @@ Create a new javascript file in `./events/` and add the following:
 ```js
 // eg: ./events/guildCreate.js
 module.exports = {
-    execute: function(bot, guild){
-        console.log("New guild: "+guild.name);
+    execute(bot, guild){
+        console.log(`New guild: ${guild.name}`);
     }
 }
 ```
@@ -87,7 +87,7 @@ It's very simple! Just go to the file of the command in which you want to add th
 ```js
 module.exports = {
     tag: "ExampleTag",
-    process: function(bot, msg, suffix){
+    process(bot, msg, suffix) {
         // code
     }
 }

@@ -1,6 +1,6 @@
 {
   "name": "yumabot-core",
-  "version": "1.7.4",
+  "version": "1.7.5",
   "description": "A lightweight Discord bot framework made in NodeJS using Eris",
   "main": "client.js",
   "scripts": {

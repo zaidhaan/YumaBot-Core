@@ -65,7 +65,7 @@ ${this.ownerOnly && this.ownerOnly == true ? "**Owner Only:** "+this.ownerOnly :
     		bot.commandsProcessed++;
     		this.process(bot, msg, suffix, plugins);
     	}catch(e){
-    		bot.createMessage("Command "+this.name+" failed to execute! Please inform the bot owner about this!");
+    		msg.channel.createMessage("Command "+this.name+" failed to execute! Please inform the bot owner about this!");
     	}
     }
 

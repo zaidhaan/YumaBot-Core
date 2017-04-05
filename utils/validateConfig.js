@@ -32,7 +32,7 @@ module.exports = function(config, logger){
             logger.configError("ownerId must be a string!");
             return reject();
         }
-        if(!config.cleverbot){
+        if(!config.hasOwnProperty("cleverbot")){
             logger.configError("cleverbot is not defined!");
             return reject();
         }

@@ -244,7 +244,7 @@ class Bot extends Eris.Client {
                                     js++
                                     val = val.replace(/\.js$/, ""); // replace the value which ends .js with nothing
                                     try {
-                                        this.commands[val] = new Command(val, require(`./commands/${val}.js`), this.config);
+                                        this.commands[val] = new Command(val, require(path.resolve(`./commands/${val}.js`)), this.config);
                                         this.logger.logFileLoaded(`./commands/${val}.js`);
                                         if (files.length == i) this.logger.logEnd("COMMANDS", js, i);
                                         resolve();

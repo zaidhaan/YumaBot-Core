@@ -125,8 +125,8 @@ And that's it! The help command will automatically detect all the tags from all 
 ---
 
 ### Other Features
-* In-Built Reload Command
-* In-Built Eval Command
+* Built-In Reload Command
+* Built-In Eval Command
 * Help Message Generator
 * Display Errors without bot crashing  
 
